@@ -1,22 +1,28 @@
-import logo from './logo.svg';
+import {useState, useEffect} from "react";
 import './App.css';
 
 function App() {
+  
+  const[temp, setTemp] = useState(0)
+
+  const URL ="https://openweathermap.org/"
+
+  useEffect(() =>{
+
+          const fetchData = async()=> {
+            const result = await fetch(URL)
+            result.json().then(json=> {
+              setTemp(json.current.temp_f)
+            })
+          }
+          fetchData();
+        }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        India Weather now: {temp}F
+        
       </header>
     </div>
   );
